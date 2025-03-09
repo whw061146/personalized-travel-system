@@ -4,21 +4,21 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 
-# ³õÊ¼»¯ Flask Ó¦ÓÃ
+# åˆå§‹åŒ– Flask åº”ç”¨
 app = Flask(__name__)
-CORS(app)  # ÔÊĞí¿çÓòÇëÇó
+CORS(app)  # å…è®¸è·¨åŸŸè¯·æ±‚
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
-# ÅäÖÃ MySQL Êı¾İ¿â
+# é…ç½® MySQL æ•°æ®åº“
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://user:password@localhost/travel_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
 
-# ³õÊ¼»¯Êı¾İ¿â
+# åˆå§‹åŒ–æ•°æ®åº“
 db = SQLAlchemy(app)
 
-# µ¼Èë²¢×¢²á Blueprints£¨¸÷Ä£¿é API£©
+# å¯¼å…¥å¹¶æ³¨å†Œ Blueprintsï¼ˆå„æ¨¡å— APIï¼‰
 from backend.routes.auth import auth_bp
 from backend.routes.recommend import recommend_bp
 from backend.routes.search import search_bp
@@ -37,10 +37,10 @@ app.register_blueprint(food_bp, url_prefix='/food')
 app.register_blueprint(indoor_bp, url_prefix='/indoor')
 app.register_blueprint(aigc_bp, url_prefix='/aigc')
 
-# ´´½¨Êı¾İ¿â±í£¨½öÔÚÊ×´ÎÔËĞĞÊ±Ö´ĞĞ£©
+# åˆ›å»ºæ•°æ®åº“è¡¨ï¼ˆä»…åœ¨é¦–æ¬¡è¿è¡Œæ—¶æ‰§è¡Œï¼‰
 with app.app_context():
     db.create_all()
 
-# ÔËĞĞ Flask ·şÎñÆ÷
+# è¿è¡Œ Flask æœåŠ¡å™¨
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
