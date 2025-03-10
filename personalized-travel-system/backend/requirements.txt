@@ -21,3 +21,4 @@ matplotlib
 tqdm
 pandas
 flask_bcrypt
+pymysql
