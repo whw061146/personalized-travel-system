@@ -71,7 +71,6 @@ personalized_travel_system/
 │   │── deploy.sh              # 部署到服务器的脚本
 │   │── backup_db.sh           # 备份数据库
 │
-│── .gitignore                 # Git 忽略文件（排除 venv、node_modules 等）
 │── docker-compose.yml         # Docker Compose 配置（若需要容器化）
 │── LICENSE                    # 许可证（可选）
 ```
