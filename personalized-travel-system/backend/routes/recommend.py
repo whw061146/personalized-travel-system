@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from backend.models import db, Place, Food, Diary, User
-from backend.utils.helpers import calculate_similarity
+from models import db, Place, Food, Diary, User
+from utils.helpers import calculate_similarity
 
 recommend_bp = Blueprint('recommend', __name__)
 
