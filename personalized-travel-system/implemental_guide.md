@@ -1,165 +1,113 @@
-# **? 个性化旅游推荐系统 - 开发指南**
+# 个性化旅游推荐系统 - 实现指南
 
-## **? 项目开发顺序 & 任务分解**
+## 项目开发流程 & 技术栈
 
-本指南详细描述如何按照 **后端 → 数据库 → 爬虫 → AI → 前端 → 部署** 的顺序开发 **个性化旅游推荐系统**。
-
----
-
-## **? 1. 配置后端框架（Flask）**
-**? `backend/`**
-
-> **目标**：搭建 Flask 主应用，配置数据库，注册 API 蓝图。
-
-? **步骤**
-1. **创建 `app.py`**（Flask 主入口）
-   - 初始化 Flask
-   - 连接 MySQL 数据库
-   - 注册 API 蓝图
-   - 启动服务器
-
-2. **配置 `config.py`**（配置数据库、JWT 密钥）
-   - MySQL 连接参数
-   - JWT 认证密钥
-
-3. **编写 `requirements.txt`**（安装所需依赖）
-   - `Flask`、`SQLAlchemy`、`Flask-JWT-Extended`、`Flask-CORS`
-
-4. **初始化 `schema.sql`**（定义 MySQL 表结构）
-
-5. **编写 `wsgi.py`**（生产环境 WSGI 入口）
-
-6. **创建 `routes/` 目录，编写 API 模块**
-   - `routes/auth.py`（用户认证 API）
-   - `routes/recommend.py`（推荐系统 API）
-   - `routes/search.py`（搜索功能 API）
-   - `routes/map.py`（路径规划 API）
-   - `routes/diary.py`（旅游日记 API）
-   - `routes/food.py`（美食 API）
-   - `routes/indoor.py`（室内导航 API）
-   - `routes/aigc.py`（AI 生成内容 API）
+本指南详细介绍如何按照 **后端 → 数据库 → 爬虫 → AI → 前端 → 部署** 的顺序开发 **个性化旅游推荐系统**。
 
 ---
 
-## **? 2. 设计数据库（MySQL + SQLAlchemy）**
-**? `backend/models/`**
+## 1. 搭建后端框架（Flask）
+**`backend/`**
 
-> **目标**：设计数据库表结构，支持所有核心功能。
+> **目标**：搭建 Flask 应用，连接数据库，注册 API 路由。
 
-? **步骤**
-1. **创建 `models/__init__.py`**（数据库初始化）
-2. **创建 `models/user.py`**（用户模型）
-3. **创建 `models/place.py`**（景点模型）
-4. **创建 `models/food.py`**（美食模型）
-5. **创建 `models/diary.py`**（旅游日记模型）
-6. **创建 `models/path.py`**（路径规划数据结构）
-7. **运行 `database/init_db.py`**（创建数据库表 & 插入测试数据）
+### 开发步骤
 
----
+#### 1.1 创建基础应用结构
+1. **创建 `app.py`**（Flask 主入口）：
+```python
+from flask import Flask, jsonify
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
+from routes import register_blueprints
+from models import db
+import config
 
-## **? 3. 爬取地图 & 美食数据**
-**? `crawler/`**
+app = Flask(__name__)
 
-> **目标**：获取 **真实的校园 & 景点地图数据**，以及 **美食数据**。
+# 加载配置
+app.config.from_object(config.Config)
 
-? **步骤**
-1. **编写 `crawler/scrape_osm.py`**（爬取 OpenStreetMap 地图数据）
-2. **编写 `crawler/scrape_places.py`**（爬取景点 & 学校数据）
-3. **编写 `crawler/scrape_food.py`**（爬取美食数据）
-4. **存储数据到 `crawler/data/`**
-5. **解析数据并存入 MySQL**
+# 初始化扩展
+db.init_app(app)
+CORS(app)
+jwt = JWTManager(app)
 
----
+# 注册所有蓝图
+register_blueprints(app)
 
-## **? 4. 实现 AI 推荐系统**
-**? `ai_recommendation/`**
+@app.route('/api/health')
+def health_check():
+    return jsonify({"status": "ok"})
 
-> **目标**：使用 AI 实现个性化推荐 & 旅游动画生成。
-
-? **步骤**
-1. **编写 `content_based.py`**（基于内容的推荐）
-2. **编写 `collaborative_filter.py`**（协同过滤推荐）
-3. **编写 `vector_search.py`**（向量数据库 + 近似最近邻搜索）
-4. **编写 `generate_animation.py`**（Stable Diffusion 生成旅游动画）
-
----
-
-## **? 5. 搭建前端（Vue.js / React）**
-**? `frontend/`**
-
-> **目标**：开发前端界面，连接后端 API，实现地图可视化。
-
-? **步骤**
-1. **创建 `package.json`**（定义 Vue.js / React 依赖）
-2. **配置 `vite.config.js`**（跨域代理）
-3. **创建 `src/main.js`**（前端入口）
-4. **创建 `src/router.js`**（Vue Router 配置）
-5. **创建 `src/store.js`**（Vuex / Pinia 状态管理）
-6. **创建 `views/` 页面组件**
-7. **创建 `components/` 组件库**
-
----
-
-## **? 6. 编写测试 & 文档**
-**? `docs/`**
-
-> **目标**：撰写 API 文档、安装指南 & 开发者手册。
-
-? **步骤**
-1. **创建 `README.md`**（项目介绍）
-2. **创建 `API_Documentation.md`**（API 说明文档）
-3. **创建 `setup_guide.md`**（安装 & 部署指南）
-4. **创建 `development_guide.md`**（开发 & 贡献指南）
-
----
-
-## **? 7. 运行 & 部署**
-**? `scripts/`**
-
-> **目标**：启动项目，部署到服务器。
-
-? **步骤**
-1. **创建 `scripts/start_dev.sh`**（启动 Flask & Vue.js 开发环境）
-2. **创建 `scripts/deploy.sh`**（自动部署脚本）
-3. **创建 `scripts/backup_db.sh`**（数据库备份脚本）
-
----
-
-## **? 8. 运行项目**
-
-```bash
-# 安装后端依赖
-cd backend
-pip install -r requirements.txt
-
-# 初始化数据库
-python database/init_db.py
-
-# 运行 Flask 服务器
-python backend/app.py
-
-# 安装前端依赖
-cd frontend
-npm install
-
-# 运行前端
-npm run dev
-
-# 启动爬虫
-python crawler/scrape_osm.py
-
-# 运行 AI 推荐
-python ai_recommendation/content_based.py
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
 ```
 
----
+2. **创建 `config.py`**（配置数据库、JWT 密钥）：
+```python
+import os
+from datetime import timedelta
 
-## **? 总结**
-? **后端**（Flask API）
-? **数据库**（MySQL）
-? **爬取真实数据**（OpenStreetMap / 高德 API）
-? **AI 推荐系统**（Word2Vec / BERT / Stable Diffusion）
-? **前端开发**（Vue.js / React）
-? **部署测试**
+class Config:
+    # 数据库配置
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://username:password@localhost/travel_system'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+    # JWT配置
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'dev-secret-key')
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
+    
+    # 上传文件配置
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static/uploads')
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB 最大上传限制
+```
 
-? **至此，你的个性化旅游推荐系统已准备就绪！** ?
+3. **编写 `requirements.txt`**（安装所需依赖）：
+```
+Flask==2.0.1
+Flask-SQLAlchemy==2.5.1
+Flask-JWT-Extended==4.3.1
+Flask-CORS==3.0.10
+PyMySQL==1.0.2
+Werkzeug==2.0.1
+passlib==1.7.4
+requests==2.26.0
+numpy==1.21.2
+pandas==1.3.3
+scikit-learn==1.0
+gensim==4.1.2
+tensorflow==2.6.0
+pillow==8.3.2
+```
+
+#### 1.2 设计数据库模型
+
+4. **初始化 `schema.sql`**（创建 MySQL 表结构）：
+```sql
+CREATE DATABASE IF NOT EXISTS travel_system;
+USE travel_system;
+
+-- 用户表
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    preferences JSON,  -- 存储用户偏好的JSON数据
+    avatar_url VARCHAR(255)
+);
+
+-- 景点表
+CREATE TABLE IF NOT EXISTS places (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    location_lat DECIMAL(10, 8) NOT NULL,
+    location_lng DECIMAL(11, 8) NOT NULL,
+    category VARCHAR(50),  -- 景点类别（自然景观、历史遗迹等）
+    images JSON,  -- 存储图片URL的JSON数组
+    rating DECIMAL(2, 1),  -- 评分（1-5分）
+    visit_time INT,  -- 建议游览时间（分钟）
+    tags JSON,  -- 标签JSON数组（如"适合拍照"、"人少清静
