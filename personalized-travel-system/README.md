@@ -105,7 +105,7 @@ npm run dev
 
 ```bash
 # Linux/Mac
-./scripts/start_dev.sh
+./scripts/start_dev.s
 
 # Windows
 .\scripts\start_dev.bat
