@@ -19,7 +19,7 @@
 ## 技术架构
 
 ### 后端
-- **框架**：Flask
+- **框架**：Flas
 - **数据库**：MySQL
 - **认证**：JWT (JSON Web Token)
 - **API**：RESTful API
