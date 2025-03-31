@@ -1,39 +1,54 @@
-import pymysql
-pymysql.install_as_MySQLdb()
-
-from flask import Flask
+import os
+from flask import Flask, jsonify
 from flask_cors import CORS
-from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
-from models import db  # 导入数据库实例
-from routes import total_bp  # 导入统一的Blueprint入口
-from config import config  # 导入配置
 
-# 初始化 Flask 应用
-app = Flask(__name__)
+# 导入数据库实例
+from models import db
 
-# 加载配置
-app.config["SQLALCHEMY_DATABASE_URI"] = config.SQLALCHEMY_DATABASE_URI
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = config.SQLALCHEMY_TRACK_MODIFICATIONS
-app.config["SECRET_KEY"] = config.SECRET_KEY
-app.config["JWT_SECRET_KEY"] = config.JWT_SECRET_KEY
-app.config["DEBUG"] = config.DEBUG
+# 导入蓝图注册函数
+from routes import register_blueprints
 
-# 初始化数据库
-db.init_app(app)
+def create_app(config_name=None):
+    """创建Flask应用实例"""
+    app = Flask(__name__)
+    
+    # 配置应用
+    if config_name is None:
+        config_name = os.environ.get('FLASK_CONFIG', 'development')
+    
+    # 从config.py加载配置
+    app.config.from_object(f'config.{config_name.capitalize()}Config')
+    
+    # 配置跨域资源共享(CORS)
+    CORS(app, resources={r"/*": {"origins": "*"}})
+    
+    # 初始化数据库
+    db.init_app(app)
+    
+    # 初始化JWT认证
+    jwt = JWTManager(app)
+    
+    # 注册所有蓝图
+    register_blueprints(app)
+    
+    # 添加健康检查端点
+    @app.route('/health')
+    def health_check():
+        return jsonify({
+            'status': 'ok',
+            'message': '个性化旅游推荐系统API服务正常运行'
+        })
+    
+    return app
 
-# 初始化其他Flask插件
-CORS(app)
-bcrypt = Bcrypt(app)
-jwt = JWTManager(app)
+# 创建应用实例
+app = create_app()
 
-# 注册API蓝图
-app.register_blueprint(total_bp)
-
-# 创建数据库表
-with app.app_context():
-    db.create_all()
-
-# 运行Flask服务器
-if __name__ == "__main__":
-    app.run(debug=config.DEBUG, host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    # 配置应用运行参数
+    app.run(
+        host=os.environ.get('FLASK_HOST', '0.0.0.0'),
+        port=int(os.environ.get('FLASK_PORT', 5000)),
+        debug=os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+    )

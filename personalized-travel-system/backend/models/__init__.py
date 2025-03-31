@@ -8,3 +8,7 @@ from .user import User
 from .place import Place
 from .food import Food
 from .diary import Diary
+from .path import Path
+
+# 在app.py中使用init_app方法初始化数据库连接
+# 数据库配置从config.py中获取
