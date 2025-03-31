@@ -64,13 +64,13 @@
 - 添加餐厅信息(位置、营业时间、联系方式等)
 - 实现按类型和位置查询的方法
 
-#### `backend/models/diary.py`
+#### `backend/models/diary.py` 👌
 - 定义Diary(旅游日记)模型类
 - 包含日记内容、创建时间、关联用户等字段
 - 添加图片、位置标记等功能
 - 实现日记分享和隐私控制
 
-#### `backend/models/path.py`
+#### `backend/models/path.py` 👌
 - 定义Path(路径规划)数据结构
 - 包含路径点、距离、时间等信息
 - 实现路径优化算法
