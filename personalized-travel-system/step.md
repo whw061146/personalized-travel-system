@@ -77,17 +77,17 @@
 
 ### 1.3 API路由实现
 
-#### `backend/routes/__init__.py`
+#### `backend/routes/__init__.py` 👌
 - 导入所有蓝图
 - 实现register_blueprints函数注册蓝图到应用
 
-#### `backend/routes/auth.py`
+#### `backend/routes/auth.py` 👌
 - 实现用户注册、登录、登出API
 - 添加密码重置功能
 - 实现JWT令牌生成和验证
 - 添加用户信息更新API
 
-#### `backend/routes/recommend.py`
+#### `backend/routes/recommend.py` 👌
 - 实现个性化景点推荐API
 - 添加基于用户历史的推荐功能
 - 实现基于地理位置的推荐
