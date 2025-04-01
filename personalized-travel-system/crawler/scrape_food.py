@@ -41,7 +41,7 @@ FOOD_DATA_DIR = os.path.join(DATA_DIR, 'food')
 os.makedirs(FOOD_DATA_DIR, exist_ok=True)
 
 # 高德地图API密钥 (需要替换为实际的API密钥)
-AMAP_KEY = "YOUR_AMAP_KEY_HERE"
+AMAP_KEY = "3ff7baa4c830d1d94161bd0fb904b978"
 
 # 美食类型列表
 FOOD_TYPES = [
@@ -264,18 +264,39 @@ def process_food_data(amap_data, city_name):
         # 提取评分
         rating = 0.0
         if "biz_ext" in poi and "rating" in poi["biz_ext"]:
+            rating_value = poi["biz_ext"]["rating"]
             try:
-                rating = float(poi["biz_ext"]["rating"])
-            except ValueError:
+                if isinstance(rating_value, (int, float)):
+                    rating = float(rating_value)
+                elif isinstance(rating_value, str):
+                    rating = float(rating_value)
+                elif isinstance(rating_value, list) and len(rating_value) > 0:
+                    # 如果rating是列表，取第一个元素
+                    if isinstance(rating_value[0], (int, float, str)):
+                        rating = float(rating_value[0])
+            except (ValueError, TypeError, IndexError):
                 pass
                 
         # 提取价格
         price = 0
         if "biz_ext" in poi and "cost" in poi["biz_ext"]:
-            try:
-                price = int(poi["biz_ext"]["cost"])
-            except ValueError:
-                pass
+            cost = poi["biz_ext"]["cost"]
+            if isinstance(cost, (int, float)):
+                price = int(cost)
+            elif isinstance(cost, str):
+                try:
+                    price = int(float(cost))
+                except (ValueError, TypeError):
+                    pass
+            elif isinstance(cost, list) and len(cost) > 0:
+                # 如果cost是列表，取第一个元素或计算平均值
+                try:
+                    if isinstance(cost[0], (int, float, str)):
+                        price = int(float(cost[0]))
+                    # 如果需要计算平均值，可以取消下面的注释
+                    # price = int(sum(float(c) for c in cost if isinstance(c, (int, float, str))) / len(cost))
+                except (ValueError, TypeError, IndexError):
+                    pass
                 
         # 确定价格区间
         price_range = "未知"
