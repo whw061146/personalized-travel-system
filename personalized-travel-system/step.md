@@ -39,7 +39,7 @@
 - 配置生产环境WSGI入口
 - 导入app实例供Gunicorn使用
 
-### 1.2 数据库模型定义
+### 1.2 数据库模型定义 👌
 
 #### `backend/models/__init__.py` 👌
 - 初始化SQLAlchemy
@@ -130,13 +130,13 @@
 
 ### 1.4 工具函数实现
 
-#### `backend/utils/helpers.py`
+#### `backend/utils/helpers.py` 👌
 - 实现距离计算函数
 - 添加数据格式转换工具
 - 实现分页功能
 - 添加常用辅助函数
 
-#### `backend/utils/security.py`
+#### `backend/utils/security.py` 👌
 - 实现密码加密和验证
 - 添加JWT令牌处理
 - 实现权限检查装饰器
@@ -144,7 +144,7 @@
 
 ### 1.5 数据库Schema
 
-#### `backend/schema.sql`
+#### `backend/schema.sql` 👌
 - 定义所有数据库表结构
 - 添加必要的索引
 - 定义外键关系
@@ -154,19 +154,19 @@
 
 ### 2.1 数据库初始化
 
-#### `database/init_db.py`
+#### `database/init_db.py` 👌
 - 实现数据库创建和初始化
 - 执行schema.sql脚本
 - 添加初始管理员账户
 - 实现数据库连接测试
 
-#### `database/migrate.py`
+#### `database/migrate.py` 👌
 - 实现数据库迁移功能
 - 添加版本控制
 - 实现向前和向后迁移
 - 添加迁移日志
 
-#### `database/seed_data.sql`
+#### `database/seed_data.sql` 👌
 - 提供示例用户数据
 - 添加示例景点数据
 - 提供示例美食数据
@@ -176,23 +176,26 @@
 
 ### 3.1 地图数据爬虫
 
-#### `crawler/scrape_osm.py`
-- 实现OpenStreetMap数据爬取
-- 获取道路和设施数据
-- 处理和清洗地理数据
-- 保存为适用格式
+#### `crawler/scrape_osm.py` 👌
+- 实现OpenStreetMap数据爬取，包括地理数据和地图数据
+- 获取道路和设施数据，如道路、建筑物等
+- 处理和清洗地理数据，清洗和转换
+- 保存为适用格式，如GeoJSON、Shapefile等
+- 至少有二百个景点，然后制作地图可视化的地图数据
 
 ### 3.2 美食数据爬虫
 
-#### `crawler/scrape_food.py`
-- 实现美食数据爬取(高德/百度API)
+#### `crawler/scrape_food.py` 👌
+- 联系上面，上面的二百多个景点所在的城市进行规划
+- 实现美食数据爬取(高德/百度API) 
 - 获取餐厅信息和评价
 - 处理和分类美食数据
 - 保存到数据库或JSON文件
 
 ### 3.3 景点数据爬虫
 
-#### `crawler/scrape_places.py`
+#### `crawler/scrape_places.py` 👌
+- 联系上面，上面的二百多个景点所在的城市进行规划
 - 实现景点数据爬取
 - 获取景点描述、图片和评价
 - 处理和分类景点数据
