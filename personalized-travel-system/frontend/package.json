@@ -1,0 +1,47 @@
+{
+  "name": "personalized-travel-system-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "个性化旅游推荐系统前端",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier --write \"src/**/*.{js,vue,css,scss}\""
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "pinia": "^2.1.6",
+    "pinia-plugin-persistedstate": "^3.2.0",
+    "axios": "^1.5.0",
+    "element-plus": "^2.3.12",
+    "leaflet": "^1.9.4",
+    "dayjs": "^1.11.9",
+    "lodash": "^4.17.21",
+    "vue-i18n": "^9.2.2",
+    "@vueuse/core": "^10.4.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9",
+    "eslint": "^8.48.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "sass": "^1.66.1",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.2",
+    "@iconify/vue": "^4.1.1"
+  },
+  "engines": {
+    "node": ">= 16.0.0",
+    "npm": ">= 7.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
