@@ -172,3 +172,32 @@ cython_debug/
 
 # Data files
 data/
+
+# === 以下为前端项目（Vue + Vite）常用忽略规则 ===
+
+# Node.js依赖目录（非常大，不应上传）
+node_modules/
+
+# 构建输出目录
+dist/
+
+# Vite 缓存
+.vite/
+
+# 环境变量文件（可能包含敏感信息）
+.env
+.env.*.local
+
+# VSCode编辑器配置
+.vscode/
+
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 系统文件（Mac/Windows）
+.DS_Store
+Thumbs.db
+ehthumbs.db

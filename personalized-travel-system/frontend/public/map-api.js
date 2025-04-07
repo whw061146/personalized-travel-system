@@ -16,7 +16,9 @@ function loadAMapAPI() {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
-    script.src = 'https://webapi.amap.com/maps?v=2.0&key=YOUR_AMAP_KEY';
+    // 从环境变量或配置中获取API密钥
+    const amapKey = window.AMAP_KEY || import.meta.env.VITE_APP_AMAP_KEY || '';
+    script.src = `https://webapi.amap.com/maps?v=2.0&key=${amapKey}`;
     script.onerror = reject;
     script.onload = () => {
       if (window.AMap) {
@@ -51,7 +53,9 @@ function loadBMapAPI() {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
-    script.src = 'https://api.map.baidu.com/api?v=3.0&ak=YOUR_BMAP_KEY&callback=initBMap';
+    // 从环境变量或配置中获取API密钥
+    const bmapKey = window.BMAP_KEY || import.meta.env.VITE_APP_BMAP_KEY || '';
+    script.src = `https://api.map.baidu.com/api?v=3.0&ak=${bmapKey}&callback=initBMap`;
     script.onerror = reject;
     
     // 定义回调函数
