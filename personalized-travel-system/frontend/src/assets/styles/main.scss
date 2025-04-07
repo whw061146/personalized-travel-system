@@ -1,0 +1,276 @@
+/* 
+ * 全局样式文件
+ * 导入变量并定义全局样式
+ */
+
+// 导入变量
+@import './variables.scss';
+
+/* 全局样式定义 */
+:root {
+  --primary-color: #{$primary-color};
+  --success-color: #{$success-color};
+  --warning-color: #{$warning-color};
+  --danger-color: #{$danger-color};
+  --info-color: #{$info-color};
+  --text-primary: #{$text-primary};
+  --text-regular: #{$text-regular};
+  --text-secondary: #{$text-secondary};
+  --border-color: #{$border-color-base};
+  --border-light: #{$border-color-light};
+  --background-color: #{$background-color-base};
+}
+
+/* 基础样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  color: $text-primary;
+  background-color: $background-color-base;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: $transition-base;
+  
+  &:hover {
+    color: lighten($primary-color, 10%);
+  }
+}
+
+/* 通用容器类 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-base;
+  box-sizing: border-box;
+}
+
+/* 响应式容器 */
+@media screen and (max-width: $breakpoint-lg) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media screen and (max-width: $breakpoint-md) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media screen and (max-width: $breakpoint-sm) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media screen and (max-width: $breakpoint-xs) {
+  .container {
+    max-width: 100%;
+    padding: 0 $spacing-small;
+  }
+}
+
+/* 通用边距类 */
+.mt-1 { margin-top: $spacing-extra-small; }
+.mt-2 { margin-top: $spacing-small; }
+.mt-3 { margin-top: $spacing-base; }
+.mt-4 { margin-top: $spacing-large; }
+.mt-5 { margin-top: $spacing-extra-large; }
+
+.mb-1 { margin-bottom: $spacing-extra-small; }
+.mb-2 { margin-bottom: $spacing-small; }
+.mb-3 { margin-bottom: $spacing-base; }
+.mb-4 { margin-bottom: $spacing-large; }
+.mb-5 { margin-bottom: $spacing-extra-large; }
+
+.ml-1 { margin-left: $spacing-extra-small; }
+.ml-2 { margin-left: $spacing-small; }
+.ml-3 { margin-left: $spacing-base; }
+.ml-4 { margin-left: $spacing-large; }
+.ml-5 { margin-left: $spacing-extra-large; }
+
+.mr-1 { margin-right: $spacing-extra-small; }
+.mr-2 { margin-right: $spacing-small; }
+.mr-3 { margin-right: $spacing-base; }
+.mr-4 { margin-right: $spacing-large; }
+.mr-5 { margin-right: $spacing-extra-large; }
+
+/* 通用文本类 */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-primary { color: $primary-color; }
+.text-success { color: $success-color; }
+.text-warning { color: $warning-color; }
+.text-danger { color: $danger-color; }
+.text-info { color: $info-color; }
+
+/* 通用阴影效果 */
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.shadow {
+  box-shadow: $box-shadow-base;
+}
+
+.shadow-lg {
+  box-shadow: $box-shadow-dark;
+}
+
+/* 通用按钮样式 */
+.btn {
+  display: inline-block;
+  padding: $spacing-small $spacing-base;
+  border-radius: $border-radius-base;
+  font-size: $font-size-base;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: $transition-base;
+  border: none;
+  outline: none;
+  
+  &:hover {
+    opacity: 0.9;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: white;
+}
+
+.btn-success {
+  background-color: $success-color;
+  color: white;
+}
+
+.btn-warning {
+  background-color: $warning-color;
+  color: white;
+}
+
+.btn-danger {
+  background-color: $danger-color;
+  color: white;
+}
+
+/* 通用卡片样式 */
+.card {
+  background-color: white;
+  border-radius: $border-radius-base;
+  box-shadow: $box-shadow-light;
+  padding: $spacing-base;
+  margin-bottom: $spacing-base;
+}
+
+/* 通用表单样式 */
+.form-group {
+  margin-bottom: $spacing-base;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: $spacing-extra-small;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: $spacing-small;
+  border: 1px solid $border-color-base;
+  border-radius: $border-radius-base;
+  font-size: $font-size-base;
+  transition: $transition-base;
+  
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+  }
+}
+
+/* 旅游系统特定样式 */
+.travel-card {
+  border-radius: $border-radius-base;
+  overflow: hidden;
+  box-shadow: $box-shadow-light;
+  transition: $transition-base;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $box-shadow-dark;
+  }
+  
+  .travel-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .travel-card-content {
+    padding: $spacing-base;
+  }
+  
+  .travel-card-title {
+    font-size: $font-size-large;
+    margin-bottom: $spacing-small;
+  }
+  
+  .travel-card-description {
+    color: $text-regular;
+    margin-bottom: $spacing-base;
+  }
+}
+
+/* 地图组件样式 */
+.map-container {
+  width: 100%;
+  height: 500px;
+  border-radius: $border-radius-base;
+  overflow: hidden;
+  box-shadow: $box-shadow-light;
+  margin-bottom: $spacing-base;
+}
+
+/* 响应式工具类 */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+
+@media (min-width: $breakpoint-sm) {
+  .d-sm-none { display: none !important; }
+  .d-sm-block { display: block !important; }
+  .d-sm-flex { display: flex !important; }
+}
+
+@media (min-width: $breakpoint-md) {
+  .d-md-none { display: none !important; }
+  .d-md-block { display: block !important; }
+  .d-md-flex { display: flex !important; }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .d-lg-none { display: none !important; }
+  .d-lg-block { display: block !important; }
+  .d-lg-flex { display: flex !important; }
+}

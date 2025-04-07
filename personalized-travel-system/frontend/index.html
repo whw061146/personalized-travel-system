@@ -6,9 +6,28 @@
   <link rel="icon" href="/favicon.ico">
   <title>个性化旅游推荐系统</title>
   <meta name="description" content="一个基于用户偏好的个性化旅游推荐系统，提供景点推荐、美食发现、路线规划等功能">
-</head>
+  <meta name="theme-color" content="#4CAF50">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="旅游推荐">
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
+  <script>
+    // 注册Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker 注册成功:', registration.scope);
+          })
+          .catch(error => {
+            console.log('Service Worker 注册失败:', error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>

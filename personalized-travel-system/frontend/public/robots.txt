@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://travel-recommend.example.com/sitemap.xml
+
+# 禁止爬虫访问的路径
+Disallow: /api/
+Disallow: /admin/
+Disallow: /user/profile/
+Disallow: /private/
+
+# 允许访问的静态资源
+Allow: /assets/
+Allow: /icons/
+Allow: /images/

@@ -1,0 +1,17 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect x="0" y="0" width="200" height="60" rx="8" fill="#409eff" opacity="0.1"/>
+  
+  <!-- 图标部分 -->
+  <g transform="translate(20, 15)">
+    <!-- 地图标记 -->
+    <path d="M15,0 C6.716,0 0,6.716 0,15 C0,23.284 15,40 15,40 C15,40 30,23.284 30,15 C30,6.716 23.284,0 15,0 Z M15,20 C12.239,20 10,17.761 10,15 C10,12.239 12.239,10 15,10 C17.761,10 20,12.239 20,15 C20,17.761 17.761,20 15,20 Z" fill="#409eff"/>
+    
+    <!-- 旅行路径 -->
+    <path d="M40,35 C45,25 55,30 60,20" stroke="#409eff" stroke-width="3" fill="none" stroke-dasharray="2,2"/>
+  </g>
+  
+  <!-- 文字部分 -->
+  <text x="70" y="30" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="bold" fill="#303133">旅游推荐</text>
+  <text x="70" y="45" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#606266">个性化出行体验</text>
+</svg>
