@@ -18,8 +18,15 @@ from models.user import User
 aigc_bp = Blueprint('aigc', __name__)
 
 # 配置上传和生成图像的保存路径
-UPLOAD_FOLDER = os.path.join(current_app.root_path, 'static', 'generated_images')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# 将current_app的使用移到函数内部，避免在模块级别使用
+# UPLOAD_FOLDER = os.path.join(current_app.root_path, 'static', 'generated_images')
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# 定义一个函数来获取上传文件夹路径
+def get_upload_folder():
+    upload_folder = os.path.join(current_app.root_path, 'static', 'generated_images')
+    os.makedirs(upload_folder, exist_ok=True)
+    return upload_folder
 
 # 允许的图片扩展名
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -78,7 +85,7 @@ def generate_image():
         
         # 生成唯一文件名并保存图像
         filename = f"{uuid.uuid4()}.png"
-        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        file_path = os.path.join(get_upload_folder(), filename)
         img.save(file_path)
         
         # 构建图像URL
@@ -143,7 +150,7 @@ def text_to_image():
         
         # 生成唯一文件名并保存图像
         filename = f"{uuid.uuid4()}.png"
-        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        file_path = os.path.join(get_upload_folder(), filename)
         img.save(file_path)
         
         # 构建图像URL
